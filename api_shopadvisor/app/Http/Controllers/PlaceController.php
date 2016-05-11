@@ -20,9 +20,9 @@ class PlaceController extends Controller
     public function index()
     {
         //
-        $Place  = Place::all();
+        $place  = Place::all();
   
-        return response()->json($Place);
+        return response()->json(array('places' => $place));
     }
 
     /**
