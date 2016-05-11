@@ -8,6 +8,8 @@ use App\Http\Requests;
 
 use App\Place;
 
+use Illuminate\Support\Facades\Input;
+
 
 
 class PlaceController extends Controller
@@ -41,9 +43,15 @@ class PlaceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
         //
+        $place=new Place;
+        $place->name=Input::get('name');
+        $place->latitude=Input::get('latitude');
+        $place->longitude=Input::get('longitude');
+        $place->save();
+        return response()->json($place);
     }
 
     /**
@@ -75,9 +83,15 @@ class PlaceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($id)
     {
         //
+        $place=Place::find($id);
+        $place->name=Input::get('name');
+        $place->latitude=Input::get('latitude');
+        $place->longitude=Input::get('longitude');
+        $place->save();
+        return response()->json($place);
     }
 
     /**
@@ -89,5 +103,6 @@ class PlaceController extends Controller
     public function destroy($id)
     {
         //
+        Place::find($id)->delete();
     }
 }
